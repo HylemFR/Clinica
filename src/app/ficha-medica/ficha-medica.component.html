@@ -1,0 +1,209 @@
+<div class="page-wrapper" >
+    <div class="container mt-5">
+      <form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">  
+
+        <div class="form-group col-md-6" style="display: none;">
+          <label for="inputEmail4">Email</label>
+          <input type="text" formControlName="email" >
+        </div>
+
+        <div class="row">
+          <div class="input-group mb-3 col-md-6">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Tipo de Sangre</label>
+            </div>
+            <select class="custom-select" formControlName="sangre">
+              <option *ngFor ="let tipo of sangres" [value]=tipo._id>{{tipo.representation}}</option>
+            </select>
+          </div>
+          <div class="input-group mb-3 col-md-6">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Año</label>
+            </div>
+            <input type="number" formControlName="anio" id="">
+          </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+              <h2>Diagnostico</h2>
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>ID</th>
+                    <th>Pasatiempo</th>
+                    <th>Borrar</th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="diagnosticos">
+                  <tr *ngFor="let control of diagnosticos.controls; let i = index">
+                    <td> {{ i + 1 }} </td>
+                    <td>
+                      <input class="form-control"
+                            type="text"
+                            [formControlName]="i">
+                    </td>
+                    <td>
+                      <button class="btn btn-danger"
+                              (click)="borrarDiagnostico(i)">
+                        Borrar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <button class="btn btn-primary mt-3 mb-5 btn-block"
+                      type="button"
+                      (click)="agregarDiagnostico()">
+                + Agregar
+              </button>
+        
+            </div>
+        </div>
+        
+        <div class="row">
+              <div class="col">
+                <h2>Medicamentos Habituales</h2>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Dosis</th>
+                      <th>Cantidad</th>
+                      <th>Periodo</th>
+                      <th>Borrar</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="medicamentosHabitual">
+                    <tr  *ngFor="let control of medicamentoHabituales.controls; let i = index" [formGroupName]="i">             
+                      <td> {{ i + 1 }} </td>
+                      <td>
+                        <input class="form-control"
+                              type="text"
+                              formControlName="nombre">
+                      </td>
+                      <td>
+                          <input class="form-control"
+                                type="text"
+                                formControlName="dosis">
+                        </td>
+                        <td>
+                          <input class="form-control"
+                                type="number"
+                                formControlName="cantidad">
+                        </td>
+                        <td>
+                          <input class="form-control"
+                                type="text"
+                                formControlName="periodo">
+                        </td>
+                      <td>
+                        <button class="btn btn-danger"
+                                (click)="borrarMedicamentoHabitual(i)">
+                          Borrar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                <button class="btn btn-primary mt-3 mb-5 btn-block"
+                        type="button"
+                        (click)="agregarMedicamentoHabitual()">
+                  + Agregar
+                </button>
+          
+              </div>
+        </div>
+
+        <div class="row">
+              <div class="col">
+                <h2>Medicamentos Alergicos</h2>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>ID</th>
+                      <th>Medicina</th>
+                      <th>Borrar</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="medicamentosAlergicos">
+                    <tr *ngFor="let control of MedicamentosAlergicos.controls; let i = index">
+                      <td> {{ i + 1 }} </td>
+                      <td>
+                        <input class="form-control"
+                              type="text"
+                              [formControlName]="i">
+                      </td>
+                      <td>
+                        <button class="btn btn-danger"
+                                (click)="borrarMedicamentoAlergico(i)">
+                          Borrar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                <button class="btn btn-primary mt-3 mb-5 btn-block"
+                        type="button"
+                        (click)="agregarMedicamentoAlergico()">
+                  + Agregar
+                </button>
+          
+              </div>
+        </div> 
+
+        <h2 class="mb-3">Seguros Médicos</h2>
+        <div class="row" formGroupName="seguros">
+          <div class="col-md-6">   
+            <h3 class="mb-4">Publicos </h3>
+              <input type="checkbox" formControlName="UNMSM" >UNMSM
+              <input type="checkbox" formControlName="MINSA" (click)="checkboxMinsa()" id="minsa">MINSA
+              <input type="checkbox" formControlName="ESSALUD" (click)="checkboxEssalud()"  id="essalud">ESSALUD
+          </div>
+          <div class="col-md-6">   
+              <h3>Privados </h3>
+              <input class="form-control"
+              placeholder="EPS"
+              formControlName="EPS">
+          </div>
+        </div>
+
+      
+        <div class="form row mt-4">
+          <div class="input-group col">
+            <button type="submit" class="btn btn-outline-primary btn-block">
+              Guardar
+            </button>
+          </div>
+        </div>
+
+        
+        
+        
+        
+      
+    </form>
+      
+      <hr>
+      <pre>
+        Estado del formulario: {{ forma.valid }}
+        <br>
+        Status: {{ forma.status }}
+      </pre>
+      
+      <pre>
+      
+        {{ forma.value | json }}
+      
+      </pre>
+    </div>
+    
+      
+      
+      
+</div>
+

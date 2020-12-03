@@ -1,0 +1,7 @@
+{
+    "/api/*":{
+        "target": "https://nameless-plains-49486.herokuapp.com",
+        "secure": true,
+        "logLevel": "debug"
+    }
+}

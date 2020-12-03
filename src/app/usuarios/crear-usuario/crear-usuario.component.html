@@ -1,0 +1,49 @@
+<div class="page-wrapper">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ titulo }}</h1>
+                <form #f="ngForm" (ngSubmit)="user()" class="form-user">
+                    <div class="form-group">
+                        <label>Código</label>
+                        <input type="text" class="form-control" [(ngModel)]="codigo" name="codigo">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombres</label>
+                        <input type="text" class="form-control" [(ngModel)]="nombres" name="nombres">
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input type="text" class="form-control" [(ngModel)]="apellidos" name="apellidos">
+                    </div>
+                    <div class="form-group">
+                        <label>DNI</label>
+                        <input type="text" class="form-control" [(ngModel)]="dni" name="dni">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" [(ngModel)]="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" [(ngModel)]="password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" class="form-control" [(ngModel)]="direccion" name="direccion">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="number" class="form-control" [(ngModel)]="telefono" name="telefono">
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary">Crear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
