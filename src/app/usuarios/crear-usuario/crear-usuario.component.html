@@ -1,49 +1,67 @@
 <div class="page-wrapper">
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>{{ titulo }}</h1>
-                <form #f="ngForm" (ngSubmit)="user()" class="form-user">
-                    <div class="form-group">
-                        <label>Código</label>
-                        <input type="text" class="form-control" [(ngModel)]="codigo" name="codigo">
-                    </div>
-                    <div class="form-group">
-                        <label>Nombres</label>
-                        <input type="text" class="form-control" [(ngModel)]="nombres" name="nombres">
-                    </div>
-                    <div class="form-group">
-                        <label>Apellidos</label>
-                        <input type="text" class="form-control" [(ngModel)]="apellidos" name="apellidos">
-                    </div>
-                    <div class="form-group">
-                        <label>DNI</label>
-                        <input type="text" class="form-control" [(ngModel)]="dni" name="dni">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" [(ngModel)]="email" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" [(ngModel)]="password" name="password">
-                    </div>
-                    <div class="form-group">
-                        <label>Dirección</label>
-                        <input type="text" class="form-control" [(ngModel)]="direccion" name="direccion">
-                    </div>
-                    <div class="form-group">
-                        <label>Teléfono</label>
-                        <input type="number" class="form-control" [(ngModel)]="telefono" name="telefono">
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-primary">Crear</button>
-                    </div>
-                </form>
-            </div>
+        <div class="form-group text-center ">
+            <h1>{{ titulo }}</h1>
         </div>
+        <form [formGroup]="forma" (ngSubmit)="user()" class="form-user">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Código</label>
+                    <input type="text" class="form-control" name="codigo" formControlName="codigo" placeholder="17200000" [(ngModel)]="codigo" [class.is-invalid]="codigoNoValido">
+                    <small *ngIf="codigoNoValido" class="text-danger">El codigo requiere 8 digitos</small>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>DNI</label>
+                    <input type="text" class="form-control" name="dni" formControlName="dni" placeholder="75202020" [(ngModel)]="dni" [class.is-invalid]="dniNoValido">
+                    <small *ngIf="dniNoValido" class="text-danger">El codigo requiere 8 digitos</small>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Apellidos</label>
+                    <input type="text" class="form-control" name="apellidos" formControlName="apellidos" placeholder="Apellidos" [(ngModel)]="apellidos" [class.is-invalid]="apellidoNoValido">
+                    <small *ngIf="apellidoNoValido" class="text-danger">Campo obligatorio</small>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Nombres</label>
+                    <input type="text" class="form-control" name="nombres" formControlName="nombres" placeholder="Nombres" [(ngModel)]="nombres" [class.is-invalid]="nombreNoValido">
+                    <small *ngIf="nombreNoValido" class="text-danger">Campo obligatorio</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" formControlName="email" placeholder="usuario@unmsm.edu.pe" [(ngModel)]="email" [class.is-invalid]="emailNoValido">
+                    <small *ngIf="emailNoValido" class="text-danger">Campo obligatorio</small>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" formControlName="password" [(ngModel)]="password" [class.is-invalid]="passwordNoValido">
+                    <small *ngIf="passwordNoValido" class="text-danger">Campo obligatorio</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Teléfono</label>
+                    <input type="text" class="form-control" name="telefono" formControlName="telefono" placeholder="986541232" [(ngModel)]="telefono" [class.is-invalid]="telefonoNoValido">
+                    <small *ngIf="telefonoNoValido" class="text-danger">Minimo deben ser 7 digitos</small>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Dirección</label>
+                    <input type="text" class="form-control" name="direccion" formControlName="direccion" placeholder="Direccion" [(ngModel)]="direccion" [class.is-invalid]="direccionNoValido">
+                    <small *ngIf="direccionNoValido" class="text-danger">Campo obligatorio</small>
+                </div>
+
+            </div>
+            <div class="form-group  text-center">
+                <button class="btn btn-primary">Crear</button>
+            </div>
+        </form>
+
     </div>
+
+
 
 </div>
