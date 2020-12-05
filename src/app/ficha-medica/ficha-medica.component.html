@@ -1,18 +1,21 @@
-<div class="page-wrapper">
+<div class="page-wrapper" *ngIf="existeSangre && existeFormulario">
     <div class="container mt-5">
         <form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+            <div class="row mb-4">
+                <div>Ficha Médica</div>
+            </div>
 
             <div class="form-group col-md-6" style="display: none;">
                 <label for="inputEmail4">Email</label>
                 <input type="text" formControlName="email">
             </div>
 
-            <div class="row">
+            <div class="row mb-3">
                 <div class="input-group mb-3 col-md-6">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Tipo de Sangre</label>
                     </div>
-                    <select class="custom-select" formControlName="sangre">
+                    <select class="custom-select" formControlName="sangre" *ngIf="sangres.length>0">
               <option *ngFor ="let tipo of sangres" [value]=tipo._id>{{tipo.representation}}</option>
             </select>
                 </div>
@@ -20,7 +23,7 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Año</label>
                     </div>
-                    <input type="number" formControlName="anio" id="">
+                    <input type="number" formControlName="anio">
                 </div>
             </div>
 
@@ -31,7 +34,7 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th>ID</th>
-                                <th>Pasatiempo</th>
+                                <th>Diagnostico</th>
                                 <th>Borrar</th>
                             </tr>
                         </thead>
@@ -39,7 +42,7 @@
                             <tr *ngFor="let control of diagnosticos.controls; let i = index">
                                 <td> {{ i + 1 }} </td>
                                 <td>
-                                    <input class="form-control" type="text" [formControlName]="i">
+                                    <input class="form-control" type="text" [formControlName]="i" placeholder="Ingrese diagnostico">
                                 </td>
                                 <td>
                                     <button class="btn btn-danger" (click)="borrarDiagnostico(i)">
@@ -50,8 +53,8 @@
                         </tbody>
                     </table>
 
-                    <button class="btn btn-primary mt-3 mb-5 btn-block" type="button" (click)="agregarDiagnostico()">
-                + Agregar
+                    <button class="btn btn-primary mt-3 mb-5 float-right" type="button" (click)="agregarDiagnostico()">
+                + Agregar Nuevo Diagnostico
               </button>
 
                 </div>
@@ -66,7 +69,7 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Dosis</th>
-                                <th>Cantidad</th>
+                                <th>Cantidad(mg o ml)</th>
                                 <th>Periodo</th>
                                 <th>Borrar</th>
                             </tr>
@@ -75,16 +78,16 @@
                             <tr *ngFor="let control of medicamentoHabituales.controls; let i = index" [formGroupName]="i">
                                 <td> {{ i + 1 }} </td>
                                 <td>
-                                    <input class="form-control" type="text" formControlName="nombre">
+                                    <input class="form-control" type="text" formControlName="nombre" placeholder="Nombre">
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text" formControlName="dosis">
+                                    <input class="form-control" type="text" formControlName="dosis" placeholder="Dosis">
                                 </td>
                                 <td>
-                                    <input class="form-control" type="number" formControlName="cantidad">
+                                    <input class="form-control" type="number" formControlName="cantidad" placeholder="Cantidad">
                                 </td>
                                 <td>
-                                    <input class="form-control" type="text" formControlName="periodo">
+                                    <input class="form-control" type="text" formControlName="periodo" placeholder="Periodo">
                                 </td>
                                 <td>
                                     <button class="btn btn-danger" (click)="borrarMedicamentoHabitual(i)">
@@ -95,8 +98,8 @@
                         </tbody>
                     </table>
 
-                    <button class="btn btn-primary mt-3 mb-5 btn-block" type="button" (click)="agregarMedicamentoHabitual()">
-                  + Agregar
+                    <button class="btn btn-primary mt-3 mb-5 float-right" type="button" (click)="agregarMedicamentoHabitual()">
+                  + Agregar Nuevo Medicamento Habitual
                 </button>
 
                 </div>
@@ -117,7 +120,7 @@
                             <tr *ngFor="let control of MedicamentosAlergicos.controls; let i = index">
                                 <td> {{ i + 1 }} </td>
                                 <td>
-                                    <input class="form-control" type="text" [formControlName]="i">
+                                    <input class="form-control" type="text" [formControlName]="i" placeholder="Nombre de la medicina">
                                 </td>
                                 <td>
                                     <button class="btn btn-danger" (click)="borrarMedicamentoAlergico(i)">
@@ -149,22 +152,16 @@
                 </div>
             </div>
 
-
             <div class="form row mt-4">
-                <div class="input-group col">
+                <div class="input-group col" style="margin-bottom: 100px !important;">
                     <button type="submit" class="btn btn-outline-primary btn-block">
               Guardar
             </button>
                 </div>
             </div>
 
-
-
-
-
-
         </form>
-
+        <!--
         <hr>
         <pre>
         Estado del formulario: {{ forma.valid }}
@@ -176,10 +173,7 @@
       
         {{ forma.value | json }}
       
-      </pre>
+      </pre>-->
     </div>
-
-
-
 
 </div>

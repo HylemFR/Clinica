@@ -14,7 +14,9 @@ import { ActivatedRoute,Router } from '@angular/router';
 export class FichaMedicaComponent implements OnInit {
 
   forma: FormGroup;
+  existeFormulario = false
   sangres = [];
+  existeSangre = false
   User : any
   anios = [{ 'valor': 2020}, {'valor': 2021}]
   anio: Number
@@ -36,8 +38,9 @@ export class FichaMedicaComponent implements OnInit {
     this.service.tipoSangre()
       .subscribe( data => {
         this.sangres= data['listado']
-        console.log(this.sangres )
+        //console.log(this.sangres )
       });
+      this.existeSangre = true
   }
 
   get diagnosticos() {
@@ -75,7 +78,8 @@ export class FichaMedicaComponent implements OnInit {
 
 
     });
-    console.log(this.forma)
+    //console.log(this.forma)
+    this.existeFormulario=true
 
   }
 

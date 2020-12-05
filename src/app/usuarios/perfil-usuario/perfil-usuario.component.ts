@@ -10,8 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 export class PerfilUsuarioComponent implements OnInit {
 
   informacion :any
+  existeInformacion = false
   codigo : String
   fichas : any
+  existeFichaMedicas = false
   
 
   constructor( private service : ServiceListUsersService, private route: ActivatedRoute,private perfil : PerfilUsuarioService ) { }
@@ -33,20 +35,21 @@ export class PerfilUsuarioComponent implements OnInit {
         console.log(error)
       }
     )
+    this.existeInformacion = true
   }
 
   loadFichaMedicas(){
     this.perfil.getFichaMedicas(this.codigo).subscribe(
       (data) => {
         this.fichas= data['usuario'].fichaMedica
-        console.log(data)
-        console.log(this.fichas)
+        //console.log(data)
+        //console.log(this.fichas)
       },
       error =>{
         console.log(error)
       }
-
     )
+    this.existeFichaMedicas=true
   }
 
 }
