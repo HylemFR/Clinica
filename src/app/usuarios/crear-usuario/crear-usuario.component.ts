@@ -27,7 +27,7 @@ export class CrearUsuarioComponent implements OnInit {
 
   
 
-  constructor(private fb: FormBuilder, private serviceUser: CrearUsuarioService, private router: Router) {
+  constructor(private fb: FormBuilder, private serviceUser: CrearUsuarioService, private ruta: Router) {
     this.crearForm();
    }
 
@@ -68,27 +68,21 @@ get telefonoNoValido(){
 
   crearForm(){
     this.forma = this.fb.group({
-      codigo: ['', [Validators.required, Validators.minLength(8)]],
-      nombres : ['', Validators.required],
-      apellidos: ['', Validators.required],
+      codigo: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      nombres : ['', [Validators.required, Validators.pattern("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}")]],
+      apellidos: ['', [Validators.required, Validators.pattern("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}")]],
       dni: ['', [Validators.required, Validators.minLength(8)]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', Validators.required],
+
+      //email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      password: ['', [Validators.required, Validators.pattern("[A-Za-z0-9!?-]{8,12}")]],
       direccion: ['', Validators.required],
       telefono: ['', [Validators.required, Validators.minLength(7)]],
-
-
     }
-
     );
-
   }
 
-
-
-
   user(){
-   
 
     console.log(this.forma);
 
@@ -113,13 +107,18 @@ get telefonoNoValido(){
     this.serviceUser.User(this.codigo, this.nombres, this.apellidos, this.dni, this.email, this.password, this.direccion, this.telefono).subscribe(   
       (data) => {
         console.log(data)
-        this.router.navigate(["../usuarios"]);
+        //this.router.navigate(["../usuarios"]);
         
       },
       (error) => {
         console.log(error)
       }
     )
+  }
+
+  listUser(){
+       this.ruta.navigate(["../perfil-usuario/"+this.dni]);
+
   }
 
 
