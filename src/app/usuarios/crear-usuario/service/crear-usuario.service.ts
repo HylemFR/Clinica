@@ -16,9 +16,9 @@ export class CrearUsuarioService {
     };
    }
 
-  User(codigo: String, nombres: String, apellidos:String, dni:String, email:String, password:String, direccion:String, telefono:String){
+  User(forma){
     
-    return this.httpCliente.post('https://nameless-plains-49486.herokuapp.com/api/users', {"codigo":codigo, "nombres":nombres, "apellidos":apellidos, "dni":dni, "email": email, "password":password, "direccion":direccion, "telefono":telefono },this.httpOptions);
+    return this.httpCliente.post('https://nameless-plains-49486.herokuapp.com/api/users', forma);
 
   }
 }

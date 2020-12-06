@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 
 import { CrearUsuarioService } from './service/crear-usuario.service';
 
+import Swal from'sweetalert2';
+
 @Component({
   selector: 'app-crear-usuario',
   templateUrl: './crear-usuario.component.html',
@@ -16,18 +18,8 @@ export class CrearUsuarioComponent implements OnInit {
 
   forma: FormGroup;
 
-  codigo: String;
-  nombres: String;
-  apellidos: String;
-  dni:String;
-  email:String;
-  password: String;
-  direccion:String;
-  telefono:String;
 
-  
-
-  constructor(private fb: FormBuilder, private serviceUser: CrearUsuarioService, private ruta: Router) {
+  constructor(private fb: FormBuilder, private serviceUser: CrearUsuarioService, private router: Router) {
     this.crearForm();
    }
 
@@ -68,33 +60,27 @@ get telefonoNoValido(){
 
   crearForm(){
     this.forma = this.fb.group({
-      codigo: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-      nombres : ['', [Validators.required, Validators.pattern("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}")]],
-      apellidos: ['', [Validators.required, Validators.pattern("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}")]],
+      codigo: ['', [Validators.required, Validators.minLength(8)]],
+      nombres : ['', Validators.required],
+      apellidos: ['', Validators.required],
       dni: ['', [Validators.required, Validators.minLength(8)]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-
-      //email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      password: ['', [Validators.required, Validators.pattern("[A-Za-z0-9!?-]{8,12}")]],
+      password: ['', Validators.required],
       direccion: ['', Validators.required],
       telefono: ['', [Validators.required, Validators.minLength(7)]],
+
+
     }
+
     );
+
   }
 
+
+
+
   user(){
-
-    console.log(this.forma);
-
-    console.log(this.codigo)
-    console.log(this.nombres)
-    console.log(this.apellidos) 
-    console.log(this.dni) 
-    console.log(this.email) 
-    console.log(this.password) 
-    console.log(this.direccion) 
-    console.log(this.telefono) 
-
+   
     if(this.forma.invalid){
       Object.values(this.forma.controls).forEach(control =>{
         control.markAsTouched();
@@ -103,22 +89,26 @@ get telefonoNoValido(){
     }
     
      
-    
-    this.serviceUser.User(this.codigo, this.nombres, this.apellidos, this.dni, this.email, this.password, this.direccion, this.telefono).subscribe(   
+    Swal.showLoading()
+    this.serviceUser.User(this.forma.value).subscribe(   
       (data) => {
         console.log(data)
-        //this.router.navigate(["../usuarios"]);
+        Swal.fire({
+          icon: 'success',
+          title: 'Envio exitoso',
+          text: 'Formulario enviado',
+          showConfirmButton: true,
+        }).then( () => {
+          this.router.navigate(["../usuarios"]);
+        })
+        
         
       },
       (error) => {
+        console.log("errorrrrrrr")
         console.log(error)
       }
     )
-  }
-
-  listUser(){
-       this.ruta.navigate(["../perfil-usuario/"+this.dni]);
-
   }
 
 
