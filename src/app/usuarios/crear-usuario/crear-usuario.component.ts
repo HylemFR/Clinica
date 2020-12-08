@@ -73,7 +73,7 @@ get telefonoNoValido(){
       nombres : ['', [Validators.required, Validators.pattern("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}")]],
       apellidos: ['', [Validators.required,Validators.pattern("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}")]],
       dni: ['', [Validators.required, Validators.minLength(8)]],
-      email:['', Validators.pattern('[0-9a-zA-Z]([-.w]*[0-9a-zA-Z_+])*@unmsm.edu.pe')],
+      email:['',Validators.required, Validators.pattern('[0-9a-zA-Z]([-.w]*[0-9a-zA-Z_+])*@unmsm.edu.pe')],
       /*email: this.fb.group({
         usuario:['', Validators.required],
         formato: ['@unmsm.edu.pe', Validators.required]
