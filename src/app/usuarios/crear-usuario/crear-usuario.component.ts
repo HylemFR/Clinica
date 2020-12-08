@@ -15,13 +15,22 @@ import Swal from'sweetalert2';
 export class CrearUsuarioComponent implements OnInit {
 
   titulo = "Crear Usuario";
+  formato = "@unmsm.edu.pe";
+ 
 
   forma: FormGroup;
+  codigo:string
+  dni:string
+  nombres:string
+  apellidos:string
+  email:string
+  password:string
+  telefono:string
+  direccion:string
 
 
   constructor(private fb: FormBuilder, private serviceUser: CrearUsuarioService, private router: Router) {
-    this.crearForm();
-   }
+    this.crearForm();   }
 
   ngOnInit(): void {
    
@@ -60,11 +69,15 @@ get telefonoNoValido(){
 
   crearForm(){
     this.forma = this.fb.group({
-      codigo: ['', [Validators.required, Validators.minLength(8)]],
-      nombres : ['', Validators.required],
-      apellidos: ['', Validators.required],
+      codigo: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      nombres : ['', [Validators.required, Validators.pattern("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}")]],
+      apellidos: ['', [Validators.required,Validators.pattern("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}")]],
       dni: ['', [Validators.required, Validators.minLength(8)]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      email:['', Validators.pattern('[0-9a-zA-Z]([-.w]*[0-9a-zA-Z_+])*@unmsm.edu.pe')],
+      /*email: this.fb.group({
+        usuario:['', Validators.required],
+        formato: ['@unmsm.edu.pe', Validators.required]
+      }),*/
       password: ['', Validators.required],
       direccion: ['', Validators.required],
       telefono: ['', [Validators.required, Validators.minLength(7)]],
@@ -80,7 +93,9 @@ get telefonoNoValido(){
 
 
   user(){
-   
+   console.log(this.forma.value)
+
+    
     if(this.forma.invalid){
       Object.values(this.forma.controls).forEach(control =>{
         control.markAsTouched();
